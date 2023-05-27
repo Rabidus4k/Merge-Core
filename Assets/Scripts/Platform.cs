@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    public UnitInfo StartUnit;
+
     [SerializeField]
     private GameObject activeStateObject;
-    
+    public bool IsEnemy;
+
     public bool IsBusy => unit != null;
 
     private UnitSpawner unitSpawner;
@@ -38,6 +41,9 @@ public class Platform : MonoBehaviour
 
     public bool TryAttach(Unit newUnit)
     {
+        if (IsEnemy)
+            return false;
+
         if (unit == null)
         {
             Attach(newUnit);

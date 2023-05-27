@@ -15,19 +15,27 @@ public class DragAndDrop3D : MonoBehaviour
     public event Action OnDrag;
     public event Action OnEndDrag;
 
+    private Unit unit;
     private void Awake()
     {
         cam = Camera.main;
+        unit = GetComponent<Unit>();
     }
 
     private void OnMouseDown()
     {
+        if (unit.IsEnemy)
+            return;
+
         mousePosition = Input.mousePosition - proectionToScreen;
         OnBeginDrag?.Invoke();
     }
 
     private void OnMouseDrag()
     {
+        if (unit.IsEnemy)
+            return;
+
         var newPosition = cam.ScreenToWorldPoint(Input.mousePosition - mousePosition);
         newPosition = new Vector3(newPosition.x * transformMultiplier.x, newPosition.y * transformMultiplier.y, newPosition.z * transformMultiplier.z);
         transform.position = newPosition;
@@ -35,6 +43,9 @@ public class DragAndDrop3D : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        if (unit.IsEnemy)
+            return;
+
         OnEndDrag?.Invoke();
     }
 }

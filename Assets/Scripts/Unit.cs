@@ -7,9 +7,11 @@ public class Unit : MonoBehaviour
     public TMPro.TextMeshPro UnitLevelText;
     public int Level;
     public UnitType Type;
+    public bool IsEnemy = false;
 
-    public void Init(UnitInfo info)
+    public void Init(UnitInfo info, bool isEnemy = false)
     {
+        IsEnemy = isEnemy;
         Level = info.Level;
         Type = info.Type;
 

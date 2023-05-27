@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,19 @@ public class UnitSpawner : MonoBehaviour
     private void Awake()
     {
         platforms = FindObjectsOfType<Platform>().ToList();
+        InitializeStartUnits();
+    }
+
+    private void InitializeStartUnits()
+    {
+        var startPlatforms = platforms.Where(x => x.StartUnit != null);
+
+        foreach (var platform in startPlatforms)
+        {
+            Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"))).GetComponent<Unit>();
+            spawnedUnit.Init(platform.StartUnit, true);
+            platform.Attach(spawnedUnit);
+        }
     }
 
     public void SpawnStartUnit(UnitType type)
@@ -23,7 +37,7 @@ public class UnitSpawner : MonoBehaviour
         Platform selectedPlatform;
 
         if (platformToSpawn == null)
-            selectedPlatform = platforms.Find(x => !x.IsBusy);
+            selectedPlatform = platforms.Find(x => !x.IsBusy && !x.IsEnemy);
         else
             selectedPlatform = platformToSpawn;
 
