@@ -27,6 +27,9 @@ public class DragAndDrop3D : MonoBehaviour
         if (unit.IsEnemy)
             return;
 
+        if (GameStateController.inst.State != GameState.Prepare)
+            return;
+
         mousePosition = Input.mousePosition - proectionToScreen;
         OnBeginDrag?.Invoke();
     }
@@ -34,6 +37,9 @@ public class DragAndDrop3D : MonoBehaviour
     private void OnMouseDrag()
     {
         if (unit.IsEnemy)
+            return;
+
+        if (GameStateController.inst.State != GameState.Prepare)
             return;
 
         var newPosition = cam.ScreenToWorldPoint(Input.mousePosition - mousePosition);
@@ -44,6 +50,9 @@ public class DragAndDrop3D : MonoBehaviour
     private void OnMouseUp()
     {
         if (unit.IsEnemy)
+            return;
+
+        if (GameStateController.inst.State != GameState.Prepare)
             return;
 
         OnEndDrag?.Invoke();

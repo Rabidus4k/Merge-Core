@@ -21,14 +21,15 @@ public class UnitSpawner : MonoBehaviour
 
         foreach (var platform in startPlatforms)
         {
-            Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"))).GetComponent<Unit>();
-            spawnedUnit.Init(platform.StartUnit, true);
+            Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"), platform.transform.position, platform.transform.localRotation)).GetComponent<Unit>();
+            spawnedUnit.Init(platform.StartUnit);
             platform.Attach(spawnedUnit);
         }
     }
 
     public void SpawnStartUnit(UnitType type)
     {
+
         TrySpawnNewUnit(0, type);
     }
 
@@ -56,7 +57,7 @@ public class UnitSpawner : MonoBehaviour
             var unitInfo = UnitsInfo.inst.GetInfo(level, type);
             if (unitInfo)
             {
-                Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"))).GetComponent<Unit>();
+                Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"), selectedPlatform.transform.position, selectedPlatform.transform.localRotation)).GetComponent<Unit>();
                 spawnedUnit.Init(unitInfo);
 
                 selectedPlatform.Attach(spawnedUnit);

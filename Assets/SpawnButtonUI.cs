@@ -42,6 +42,9 @@ public class SpawnButtonUI : MonoBehaviour
 
     public void OnClickPerform()
     {
+        if (GameStateController.inst.State != GameState.Prepare)
+            return;
+
         if (!unitSpawner.CanSpawnNewUnit())
             return;
 

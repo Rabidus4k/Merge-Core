@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &648372440334848883
 Transform:
@@ -60,7 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc2426ca87cf0d4a9c73a9c4beb8204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartUnit: {fileID: 0}
   activeStateObject: {fileID: 648372441031443636}
+  IsEnemy: 0
 --- !u!1 &648372440824561894
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +79,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &648372440824561893
 Transform:
@@ -160,7 +162,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 0
 --- !u!4 &648372441031443635
 Transform:
