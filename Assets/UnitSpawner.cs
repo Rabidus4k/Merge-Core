@@ -32,6 +32,16 @@ public class UnitSpawner : MonoBehaviour
         TrySpawnNewUnit(0, type);
     }
 
+    public bool CanSpawnNewUnit()
+    {
+        var selectedPlatform = platforms.Find(x => !x.IsBusy && !x.IsEnemy);
+
+        if (selectedPlatform == null)
+            return false;
+        else
+            return true;
+    }
+
     public Unit TrySpawnNewUnit(int level, UnitType type, Platform platformToSpawn = null)
     {
         Platform selectedPlatform;

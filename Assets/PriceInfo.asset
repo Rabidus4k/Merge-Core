@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f380f8a3ce3f94196615e3abe168bb, type: 3}
+  m_Name: PriceInfo
+  m_EditorClassIdentifier: 
+  Info: 04000000080000000e0000001600000023000000380000005a00000090000000e6000000700100004e020000b6030000e60500006f090000190f000029180000a7260000d63d0000f2620000549e0000

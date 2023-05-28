@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  priceText: {fileID: 7893259828785872339}
 --- !u!1 &7893259828785872337
 GameObject:
   m_ObjectHideFlags: 0
