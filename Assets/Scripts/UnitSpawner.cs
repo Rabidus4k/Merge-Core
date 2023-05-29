@@ -29,7 +29,6 @@ public class UnitSpawner : MonoBehaviour
 
     public void SpawnStartUnit(UnitType type)
     {
-
         TrySpawnNewUnit(0, type);
     }
 

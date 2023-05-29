@@ -21,7 +21,7 @@ public class DeckSpawnButtonUI : BaseButtonUI
 
         if (moneyController.TrySpendMoney(currentPrice))
         {
-            deckController.SpawnNewCard();
+            deckController.SpawnNewCard(currentPrice);
             UpdatePrice();
         }
     }

@@ -20,11 +20,17 @@ public class MoneyController : MonoBehaviour
         return PriceInfo.Info[index];
     }
 
-    public bool TrySpendMoney(int money)
+    public void AddMoney(int ammount)
     {
-        if (money <= Money)
+        Money += ammount;
+        moneyAmmountText.SetText(Money.ToString());
+    }
+
+    public bool TrySpendMoney(int ammount)
+    {
+        if (ammount <= Money)
         {
-            Money -= money;
+            Money -= ammount;
             moneyAmmountText.SetText(Money.ToString());
             return true;
         } 

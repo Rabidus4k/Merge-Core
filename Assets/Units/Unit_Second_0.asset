@@ -19,3 +19,4 @@ MonoBehaviour:
   Model: {fileID: 8622631773343447770, guid: d3c86e28b236e5d40aba1f9f5f8b49e2, type: 3}
   Damage: 0
   MinDistanceToTarget: 12
+  CardSprite: {fileID: 21300000, guid: 3d775c6400992b14f881e246ae853c3a, type: 3}

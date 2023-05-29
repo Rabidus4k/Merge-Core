@@ -9,6 +9,7 @@ public class UnitsInfo : MonoBehaviour
     public List<UnitInfo> InfoList = new List<UnitInfo>();
     public List<UnitInfo> OpenedUnits = new List<UnitInfo>();
 
+    private CardPreview cardPreview;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class UnitsInfo : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        cardPreview = FindObjectOfType<CardPreview>();
     }
 
     public UnitInfo GetInfo(int level, UnitType type)
@@ -35,5 +38,6 @@ public class UnitsInfo : MonoBehaviour
         if (OpenedUnits.Contains(info))
             return;
         OpenedUnits.Add(info);
+        cardPreview.ShowPreview(info);
     }
 }

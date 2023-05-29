@@ -3,20 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragAndDrop3D : MonoBehaviour
+public class DragAndDrop3D : DragAndDropBase
 {
-    [SerializeField]
-    private Vector3 transformMultiplier = Vector3.up;
     [SerializeField]
     private LayerMask planeLayerMask;
 
     private Vector3 proectionToScreen => cam.WorldToScreenPoint(transform.position);
     private Vector3 mousePosition;
     private Camera cam;
-
-    public event Action OnBeginDrag;
-    public event Action OnDrag;
-    public event Action OnEndDrag;
 
     private Unit unit;
     private void Awake()
@@ -25,7 +19,7 @@ public class DragAndDrop3D : MonoBehaviour
         unit = GetComponent<Unit>();
     }
 
-    private void OnMouseDown()
+    protected override void OnMouseDown()
     {
         if (unit.IsEnemy)
             return;
@@ -34,20 +28,16 @@ public class DragAndDrop3D : MonoBehaviour
             return;
 
         mousePosition = Input.mousePosition - proectionToScreen;
-        OnBeginDrag?.Invoke();
+        base.OnMouseDown();
     }
 
-    private void OnMouseDrag()
+    protected override void OnMouseDrag()
     {
         if (unit.IsEnemy)
             return;
 
         if (GameStateController.inst.State != GameState.Prepare)
             return;
-
-        //var newPosition = cam.ScreenToWorldPoint(Input.mousePosition - mousePosition);
-        //newPosition = new Vector3(newPosition.x * transformMultiplier.x, newPosition.y * transformMultiplier.y, newPosition.z * transformMultiplier.z);
-        //transform.position = newPosition;
 
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -56,9 +46,10 @@ public class DragAndDrop3D : MonoBehaviour
             transform.position = hit.point;
         }
 
-        OnDrag?.Invoke();
+        base.OnMouseDrag();
     }
-    private void OnMouseUp()
+
+    protected override void OnMouseUp()
     {
         if (unit.IsEnemy)
             return;
@@ -66,6 +57,6 @@ public class DragAndDrop3D : MonoBehaviour
         if (GameStateController.inst.State != GameState.Prepare)
             return;
 
-        OnEndDrag?.Invoke();
+        base.OnMouseUp();
     }
 }

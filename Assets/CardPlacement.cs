@@ -7,14 +7,14 @@ public class CardPlacement : MonoBehaviour
 {
     [SerializeField]
     private LayerMask platformLayerMask;
-    private CardDragAndDrop cardDragAndDrop;
+    private DragAndDropBase cardDragAndDrop;
     private Camera cam;
 
     public event Action<GameObject> OnPlacedCard;
 
     private void Awake()
     {
-        cardDragAndDrop = GetComponent<CardDragAndDrop>();
+        cardDragAndDrop = GetComponent<DragAndDropBase>();
         cam = Camera.main;
     }
 
@@ -34,7 +34,7 @@ public class CardPlacement : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100, platformLayerMask))
         {
-            if (hit.collider.GetComponent<Platform>().TryAttach(gameObject.GetComponent<Card>().UnitInfo))
+            if (hit.collider.GetComponent<Platform>().TryAttach(gameObject.GetComponent<Card>().Info))
             {
                 OnPlacedCard?.Invoke(gameObject);
             }

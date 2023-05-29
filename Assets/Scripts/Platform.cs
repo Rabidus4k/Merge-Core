@@ -7,7 +7,12 @@ public class Platform : MonoBehaviour
     public UnitInfo StartUnit;
 
     [SerializeField]
-    private GameObject activeStateObject;
+    private SpriteRenderer activeStateObject;
+    [SerializeField]
+    private Color activeColor;
+    [SerializeField]
+    private Color deactiveColor;
+
     public bool IsEnemy;
 
     public bool IsBusy => unit != null;
@@ -41,7 +46,7 @@ public class Platform : MonoBehaviour
         if (isActive)
             return;
 
-        activeStateObject.SetActive(true);
+        activeStateObject.color = activeColor;
         isActive = true;
     }
 
@@ -50,7 +55,7 @@ public class Platform : MonoBehaviour
         if (!isActive)
             return;
 
-        activeStateObject.SetActive(false);
+        activeStateObject.color = deactiveColor;
         isActive = false;
     }
 
@@ -118,12 +123,12 @@ public class Platform : MonoBehaviour
     public void Attach(Unit newUnit)
     {
         unit = newUnit;
-        unit.GetComponent<DragAndDrop3D>().OnBeginDrag += ClearPlatform;
+        unit.GetComponent<DragAndDropBase>().OnBeginDrag += ClearPlatform;
         newUnit.transform.position = transform.position;
 
         void ClearPlatform()
         {
-            unit.GetComponent<DragAndDrop3D>().OnBeginDrag -= ClearPlatform;
+            unit.GetComponent<DragAndDropBase>().OnBeginDrag -= ClearPlatform;
             unit = null;
         }
     }

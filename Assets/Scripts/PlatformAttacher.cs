@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlatformAttacher : MonoBehaviour
 {
-    private DragAndDrop3D dragAndDrop;
+    private DragAndDropBase dragAndDrop;
     private PlatformDetector platformDetector;
 
     private void Awake()
     {
-        dragAndDrop = GetComponent<DragAndDrop3D>();
+        dragAndDrop = GetComponent<DragAndDropBase>();
         platformDetector = GetComponent<PlatformDetector>();
     }
 

@@ -3,31 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardDragAndDrop : MonoBehaviour
+public class CardDragAndDrop : DragAndDropBase
 {
     private Rigidbody _rigidbody;
     private float _startYPos;
     private BoardController _board;
+    private Card card;
 
-    public event Action OnBeginDrag;
-    public event Action OnDrag;
-    public event Action OnEndDrag;
-
-    void Start()
+    private void Start()
     {
+        card = GetComponent<Card>();
         _board = FindObjectOfType<BoardController>();
         _rigidbody = GetComponent<Rigidbody>();
+        
 
         _startYPos = 0; // Better to not hardcode that one but whatever
     }
 
-    private void OnMouseDown()
+    protected override void OnMouseDown()
     {
         _rigidbody.isKinematic = false;
-        OnBeginDrag?.Invoke();
+        UnitSelection.CallOnSelect(card.Info);
+        base.OnMouseDown();
     }
 
-    private void OnMouseDrag()
+    protected override void OnMouseDrag()
     {
         Vector3 newWorldPosition = new Vector3(_board.CurrentMousePosition.x, _startYPos + 1, _board.CurrentMousePosition.z);
 
@@ -36,12 +36,13 @@ public class CardDragAndDrop : MonoBehaviour
         var speed = 10 * difference;
         _rigidbody.velocity = speed;
         _rigidbody.rotation = Quaternion.Euler(new Vector3(speed.z, 0, -speed.x));
-        OnDrag?.Invoke();
+        base.OnMouseDrag();
     }
 
-    private void OnMouseUp()
+    protected override void OnMouseUp()
     {
         _rigidbody.isKinematic = true;
-        OnEndDrag?.Invoke();
+        UnitSelection.CallOnDeselect(card.Info);
+        base.OnMouseUp();
     }
 }

@@ -11,7 +11,7 @@ public class PlatformDetector : MonoBehaviour
 
     public Platform NewPlatform { get => newPlatform; }
     public Platform CurrentPlatform { get => currentPlatform; }
-    private DragAndDrop3D dragAndDrop;
+    private DragAndDropBase dragAndDrop;
     private Platform newPlatform;
     private Platform currentPlatform;
 
@@ -19,7 +19,7 @@ public class PlatformDetector : MonoBehaviour
 
     private void Awake()
     {
-        dragAndDrop = GetComponent<DragAndDrop3D>();
+        dragAndDrop = GetComponent<DragAndDropBase>();
     }
 
     private void OnEnable()

@@ -22,4 +22,7 @@ public class UnitInfo : ScriptableObject
     [Header("Attack")]
     public float Damage = 1;
     public float MinDistanceToTarget = 1;
+    [Space]
+    [Header("Card")]
+    public Sprite CardSprite;
 }

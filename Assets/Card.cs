@@ -1,15 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
+    [SerializeField]
+    private TMPro.TextMeshProUGUI levelText;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI damageText;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI healthText;
 
-    public UnitInfo UnitInfo => unitInfo;
-    private UnitInfo unitInfo;
-
-    public void Init(UnitInfo info)
+    public Image ImageToChange;
+    public UnitInfo Info => info;
+    private UnitInfo info;
+    public void Init(UnitInfo newInfo)
     {
-        unitInfo = info;
+        info = newInfo;
+        ImageToChange.sprite = info.CardSprite;
+
+        InitText();
+    }
+
+    private void InitText()
+    {
+        levelText.SetText(info.Level.ToString());
+        damageText.SetText(info.Damage.ToString());
+        healthText.SetText(info.Health.ToString());
     }
 }

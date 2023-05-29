@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
     private BaseAttack baseAttack;
     private UnitStateController unitStateController;
 
-    private UnitInfo info;
+    public UnitInfo Info;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
 
     public void Init(UnitInfo newinfo)
     {
-        info = newinfo;
+        Info = newinfo;
 
         InitModel();
         InitBaseValues();
@@ -38,30 +38,30 @@ public class Unit : MonoBehaviour
 
     private void InitModel()
     {
-        if (info.Model)
+        if (Info.Model)
         {
-            var model = Instantiate(info.Model, ModelSpawnPoint);
+            var model = Instantiate(Info.Model, ModelSpawnPoint);
             unitStateController.Animator = model.GetComponent<Animator>();
         }
     }
 
     private void InitBaseValues()
     {
-        IsEnemy = info.IsEnemy;
-        Level = info.Level;
-        Type = info.Type;
+        IsEnemy = Info.IsEnemy;
+        Level = Info.Level;
+        Type = Info.Type;
 
         UnitLevelText.SetText($"{Type}:{Level}");
     }
 
     private void InitAttack()
     {
-        baseAttack.Damage = info.Damage;
-        baseAttack.MinDistanceToTarget = info.MinDistanceToTarget;
+        baseAttack.Damage = Info.Damage;
+        baseAttack.MinDistanceToTarget = Info.MinDistanceToTarget;
     }
 
     private void InitHealth()
     {
-        unitHealth.UpdateMaxHealth(info.Health);
+        unitHealth.UpdateMaxHealth(Info.Health);
     }
 }

@@ -62,7 +62,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartUnit: {fileID: 0}
-  activeStateObject: {fileID: 648372441031443636}
+  activeStateObject: {fileID: 4100466859913159576}
+  activeColor: {r: 0.084590435, g: 1, b: 0, a: 1}
+  deactiveColor: {r: 1, g: 1, b: 1, a: 1}
   IsEnemy: 0
 --- !u!1 &648372440824561894
 GameObject:

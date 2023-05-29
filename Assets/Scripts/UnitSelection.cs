@@ -8,17 +8,17 @@ public class UnitSelection : MonoBehaviour
     [SerializeField]
     private GameObject selectObject; 
 
-    private DragAndDrop3D dragAndDrop3D;
+    private DragAndDropBase dragAndDrop3D;
 
-    private static event Action<Unit> OnSelect;
-    private static event Action<Unit> OnDeSelect;
+    private static event Action<UnitInfo> OnSelect;
+    private static event Action<UnitInfo> OnDeSelect;
 
     private Unit unit;
 
     private void Awake()
     {
         unit = GetComponent<Unit>();
-        dragAndDrop3D = GetComponent<DragAndDrop3D>();
+        dragAndDrop3D = GetComponent<DragAndDropBase>();
     }
 
     private void OnEnable()
@@ -39,28 +39,38 @@ public class UnitSelection : MonoBehaviour
         OnDeSelect -= DeSelect;
     }
 
+    public static void CallOnSelect(UnitInfo info)
+    {
+        OnSelect?.Invoke(info);
+    }
+
+    public static void CallOnDeselect(UnitInfo info)
+    {
+        OnDeSelect?.Invoke(info);
+    }
+
     private void OnDeSelectPerform()
     {
-        OnDeSelect?.Invoke(unit);
+        OnDeSelect?.Invoke(unit.Info);
     }
 
     public void OnSelectPerform()
     {
-        OnSelect?.Invoke(unit);
+        OnSelect?.Invoke(unit.Info);
     }
 
-    private void Select(Unit compareUnit)
+    private void Select(UnitInfo info)
     {
         if (unit.IsEnemy)
             return;
 
-        if (unit.Level == compareUnit.Level && unit.Type == compareUnit.Type)
+        if (unit.Info == info)
         {
             selectObject.SetActive(true);
         }
     }
 
-    private void DeSelect(Unit compareUnit)
+    private void DeSelect(UnitInfo compareUnit)
     {
         if (unit.IsEnemy)
             return;
