@@ -7,6 +7,9 @@ public class DragAndDrop3D : MonoBehaviour
 {
     [SerializeField]
     private Vector3 transformMultiplier = Vector3.up;
+    [SerializeField]
+    private LayerMask planeLayerMask;
+
     private Vector3 proectionToScreen => cam.WorldToScreenPoint(transform.position);
     private Vector3 mousePosition;
     private Camera cam;
@@ -42,9 +45,17 @@ public class DragAndDrop3D : MonoBehaviour
         if (GameStateController.inst.State != GameState.Prepare)
             return;
 
-        var newPosition = cam.ScreenToWorldPoint(Input.mousePosition - mousePosition);
-        newPosition = new Vector3(newPosition.x * transformMultiplier.x, newPosition.y * transformMultiplier.y, newPosition.z * transformMultiplier.z);
-        transform.position = newPosition;
+        //var newPosition = cam.ScreenToWorldPoint(Input.mousePosition - mousePosition);
+        //newPosition = new Vector3(newPosition.x * transformMultiplier.x, newPosition.y * transformMultiplier.y, newPosition.z * transformMultiplier.z);
+        //transform.position = newPosition;
+
+        RaycastHit hit;
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 100, planeLayerMask))
+        {
+            transform.position = hit.point;
+        }
+
         OnDrag?.Invoke();
     }
     private void OnMouseUp()

@@ -1,19 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SpawnButtonUI : BaseButtonUI
+public class DeckSpawnButtonUI : BaseButtonUI
 {
-    [SerializeField]
-    private UnitType Type;
-    private UnitSpawner unitSpawner;
-
+    private DeckController deckController;
     protected override void Awake()
     {
         base.Awake();
-        unitSpawner = FindObjectOfType<UnitSpawner>();
+        deckController = FindObjectOfType<DeckController>();
     }
 
     protected override void OnClickPerform()
@@ -21,12 +16,12 @@ public class SpawnButtonUI : BaseButtonUI
         if (GameStateController.inst.State != GameState.Prepare)
             return;
 
-        if (!unitSpawner.CanSpawnNewUnit())
+        if (!deckController.CanSpawnNewCard())
             return;
 
         if (moneyController.TrySpendMoney(currentPrice))
         {
-            unitSpawner.SpawnStartUnit(Type);
+            deckController.SpawnNewCard();
             UpdatePrice();
         }
     }

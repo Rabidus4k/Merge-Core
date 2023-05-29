@@ -85,6 +85,36 @@ public class Platform : MonoBehaviour
         }
     }
 
+    public bool TryAttach(UnitInfo newUnit)
+    {
+        if (IsEnemy)
+            return false;
+
+        if (unit == null)
+        {
+            var result = unitSpawner.SpawnNewUnit(newUnit, this);
+            return true;
+        }
+        else if (unit.Level == newUnit.Level && unit.Type == newUnit.Type)
+        {
+            var oldUnit = unit.gameObject;
+            var result = unitSpawner.TrySpawnNewUnit(unit.Level + 1, unit.Type, this);
+            if (result)
+            {
+                Destroy(oldUnit);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void Attach(Unit newUnit)
     {
         unit = newUnit;

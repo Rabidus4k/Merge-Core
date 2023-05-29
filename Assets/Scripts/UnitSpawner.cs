@@ -59,8 +59,8 @@ public class UnitSpawner : MonoBehaviour
             {
                 Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"), selectedPlatform.transform.position, selectedPlatform.transform.localRotation)).GetComponent<Unit>();
                 spawnedUnit.Init(unitInfo);
-
                 selectedPlatform.Attach(spawnedUnit);
+                UnitsInfo.inst.OpenNewUnit(unitInfo);
 
                 return spawnedUnit;
             }
@@ -74,5 +74,13 @@ public class UnitSpawner : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public Unit SpawnNewUnit(UnitInfo info, Platform platformToSpawn)
+    {
+        Unit spawnedUnit = ((GameObject)Instantiate(Resources.Load("Unit"), platformToSpawn.transform.position, platformToSpawn.transform.localRotation)).GetComponent<Unit>();
+        spawnedUnit.Init(info);
+        platformToSpawn.Attach(spawnedUnit);
+        return spawnedUnit;
     }
 }
