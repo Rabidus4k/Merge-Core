@@ -16,5 +16,6 @@ MonoBehaviour:
   IsEnemy: 1
   Level: 0
   Health: 100
-  Damage: 1
-  Model: {fileID: 0}
+  Model: {fileID: 8622631773343447770, guid: d3c86e28b236e5d40aba1f9f5f8b49e2, type: 3}
+  Damage: 0
+  MinDistanceToTarget: 12

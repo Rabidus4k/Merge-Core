@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField]
+    private Transform ModelSpawnPoint;
+
     public TMPro.TextMeshPro UnitLevelText;
     public int Level;
     public UnitType Type;
@@ -12,11 +15,13 @@ public class Unit : MonoBehaviour
 
     private UnitHealth unitHealth;
     private BaseAttack baseAttack;
+    private UnitStateController unitStateController;
 
     private UnitInfo info;
 
     private void Awake()
     {
+        unitStateController = GetComponent<UnitStateController>();
         unitHealth = GetComponent<UnitHealth>();
         baseAttack = GetComponent<BaseAttack>();
     }
@@ -25,9 +30,19 @@ public class Unit : MonoBehaviour
     {
         info = newinfo;
 
+        InitModel();
         InitBaseValues();
         InitHealth();
         InitAttack();
+    }
+
+    private void InitModel()
+    {
+        if (info.Model)
+        {
+            var model = Instantiate(info.Model, ModelSpawnPoint);
+            unitStateController.Animator = model.GetComponent<Animator>();
+        }
     }
 
     private void InitBaseValues()
@@ -42,6 +57,7 @@ public class Unit : MonoBehaviour
     private void InitAttack()
     {
         baseAttack.Damage = info.Damage;
+        baseAttack.MinDistanceToTarget = info.MinDistanceToTarget;
     }
 
     private void InitHealth()

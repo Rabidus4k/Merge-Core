@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85d7152c2e64a240b5e5e5170c5cef7, type: 3}
   m_Name: Unit_First_1
   m_EditorClassIdentifier: 
+  Type: 0
+  IsEnemy: 0
   Level: 1
-  Model: {fileID: 0}
+  Health: 100
+  Model: {fileID: 8229266561575949295, guid: fcf3e14e2c541fa49bd5dec62118645d, type: 3}
+  Damage: 0
+  MinDistanceToTarget: 1.5

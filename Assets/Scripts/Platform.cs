@@ -15,10 +15,25 @@ public class Platform : MonoBehaviour
     private UnitSpawner unitSpawner;
     private bool isActive = false;
     private Unit unit;
-
+    
     private void Awake()
     {
         unitSpawner = FindObjectOfType<UnitSpawner>();
+    }
+
+    private void Start()
+    {
+        GameStateController.inst.OnGameStarted += HidePlatforms;
+    }
+
+    private void OnDisable()
+    {
+        GameStateController.inst.OnGameStarted -= HidePlatforms;
+    }
+
+    private void HidePlatforms()
+    {
+        gameObject.SetActive(false);
     }
 
     public void Activate()
