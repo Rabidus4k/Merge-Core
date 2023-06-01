@@ -11,7 +11,10 @@ public class DeckController : MonoBehaviour
     private Vector3 hidePos;
     [SerializeField]
     private Vector3 showPos;
+    [SerializeField]
+    private Button showHideButton;
 
+    private bool panelIsShow = true;
     private int currentCardsCount = 0;
 
     private TrashCan trashCan;
@@ -19,16 +22,20 @@ public class DeckController : MonoBehaviour
     private void Awake()
     {
         trashCan = FindObjectOfType<TrashCan>();
+        showHideButton.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         trashCan.OnRemove += DeleteCard;
+        showHideButton.onClick.AddListener(TogglePanel);
     }
+
 
     private void OnDisable()
     {
         trashCan.OnRemove -= DeleteCard;
+        showHideButton.onClick.RemoveListener(TogglePanel);
     }
 
     public bool CanSpawnNewCard()
@@ -45,6 +52,9 @@ public class DeckController : MonoBehaviour
 
     public void SpawnNewCard(int price)
     {
+        showHideButton.gameObject.SetActive(true);
+        ShowPanel();
+
         currentCardsCount++;
 
         var card = ((GameObject)Instantiate(Resources.Load("Card"), transform));
@@ -69,9 +79,22 @@ public class DeckController : MonoBehaviour
             card.transform.localPosition = Vector3.zero;
             card.transform.rotation = transform.rotation;
         }
-
     }
 
+
+    private void TogglePanel()
+    {
+        if (panelIsShow)
+        {
+            HidePanel();
+            panelIsShow = false;
+        }
+        else
+        {
+            ShowPanel();
+            panelIsShow = true;
+        }
+    }
 
     public void ShowPanel()
     {
@@ -85,8 +108,14 @@ public class DeckController : MonoBehaviour
 
     private void DeleteCard(GameObject obj)
     {
-        Destroy(obj);
         if (obj.TryGetComponent(out Card card))
+        {
             currentCardsCount--;
+            if (currentCardsCount == 0)
+            {
+                showHideButton.gameObject.SetActive(false);
+            }
+        }
+        Destroy(obj);
     }
 }
